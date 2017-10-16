@@ -1,6 +1,6 @@
 {
-  "name": "check-for-uri-handler",
-  "version": "0.0.1",
+  "name": "@alepop/check-for-uri-handler",
+  "version": "0.0.2",
   "description": "Detect from browser whether custom URI has an installed handler.",
   "main": "index.js",
   "scripts": {
