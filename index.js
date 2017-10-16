@@ -17,6 +17,8 @@ module.exports = function (uri, failCb, successCb) {
       openUriUsingFirefox(uri, failCallback, successCallback)
     } else if (browser.isChrome) {
       openUriWithTimeoutHack(uri, failCallback, successCallback)
+    } else if (browser.isSafari) {
+      openUriWithHiddenFrame (uri, failCb, successCb)
     } else if (browser.isIE) {
       openUriUsingIEInOlderWindows(uri, failCallback, successCallback)
     } else {
@@ -173,7 +175,7 @@ function checkBrowser () {
   return {
     isOpera: isOpera,
     isFirefox: typeof InstallTrigger !== 'undefined',
-    isSafari: Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0,
+    isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
     isChrome: !!window.chrome && !isOpera,
     isIE: /* @cc_on!@ */ false || !!document.documentMode // At least IE6
   }
