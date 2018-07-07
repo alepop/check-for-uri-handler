@@ -15,7 +15,7 @@ module.exports = function (uri, failCb, successCb) {
 
     if (browser.isFirefox) {
       openUriUsingFirefox(uri, failCallback, successCallback)
-    } else if (browser.isChrome) {
+    } else if (browser.isChrome || browser.isIOS) {
       openUriWithTimeoutHack(uri, failCallback, successCallback)
     } else if (browser.isSafari) {
       openUriWithHiddenFrame (uri, failCb, successCb)
@@ -171,13 +171,13 @@ function openUriWithMsLaunchUri (uri, failCb, successCb) {
 }
 
 function checkBrowser () {
-  var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0
   return {
-    isOpera: isOpera,
+    isOpera: !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0,
     isFirefox: typeof InstallTrigger !== 'undefined',
     isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
     isChrome: !!window.chrome && !isOpera,
-    isIE: /* @cc_on!@ */ false || !!document.documentMode // At least IE6
+    isIE: /* @cc_on!@ */ false || !!document.documentMode, // At least IE6
+    isIOS: /iPad|iPhone|iPod/.test(navigator.platform)
   }
 }
 
