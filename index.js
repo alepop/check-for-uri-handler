@@ -171,8 +171,9 @@ function openUriWithMsLaunchUri (uri, failCb, successCb) {
 }
 
 function checkBrowser () {
+  const isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
   return {
-    isOpera: !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0,
+    isOpera,
     isFirefox: typeof InstallTrigger !== 'undefined',
     isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
     isChrome: !!window.chrome && !isOpera,
